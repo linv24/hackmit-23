@@ -1,0 +1,23 @@
+/* html, body {
+    background-color: #BAD1FF;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+} */
+
+.upload-image {
+    width: 40px;
+    margin: 20px 0;
+}
+
+.dropzone {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dropzone:hover {
+    background-color: #f7f7f7;
+}
