@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -44,3 +43,18 @@ def pdf_detail(req, pdf_id):
 @api_view(['POST'])
 def pdf_add(req):
     ser = PDFSerializer(data=req.data)
+    if ser.is_valid():
+        ser.save()
+        return Response(ser.data, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+def pdfselect_add(req):
+    pass
+
+@api_view(['POST'])
+def recording_add(req):
+    pass
+
+@api_view(['GET'])
+def similarity_detail(req):
+    pass

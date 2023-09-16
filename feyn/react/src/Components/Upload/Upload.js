@@ -31,7 +31,7 @@ const Upload = () => {
     const handleDragOver = (e) => {
         e.preventDefault();
     }
-    
+
     const handleDrop = (e) => {
         e.preventDefault();
         if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
@@ -39,23 +39,22 @@ const Upload = () => {
             e.dataTransfer.clearData();
         }
     }
-    
+
     const openFilePicker = () => {
         fileInputRef.current.click();
     }
 
-    // TODO: Vincent
     const handleUpload = async () => {
         if (pdf) {
             const formData = new FormData();
             formData.append('pdf', pdf);
-    
+
             try {
-                const response = await fetch('server', {
+                const response = await fetch('http://localhost:8000/api/pdf/add/', {
                     method: 'POST',
                     body: formData
                 });
-                
+
                 if (response.status === 200) {
                     alert('File uploaded successfully.');
                 } else {
@@ -77,10 +76,10 @@ const Upload = () => {
                 {/* <img src="../../../images/upload.png" alt="Arrow" class="upload-image"/> */}
                 {/* Uploa PDF box */}
                 <div>
-                    <input 
-                        type="file" 
-                        onChange={handleFileChange} 
-                        accept=".pdf" 
+                    <input
+                        type="file"
+                        onChange={handleFileChange}
+                        accept=".pdf"
                         style={{ display: 'none' }}
                         id="pdf-upload"
                     />

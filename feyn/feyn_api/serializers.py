@@ -6,6 +6,6 @@ class PDFSerializer(serializers.ModelSerializer):
         model = PDF
         fields = (
             'id',
-            'session_id',
-            'text'
+            'pdf_id',
+            'filepath'
         )

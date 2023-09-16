@@ -2,9 +2,10 @@ from django.db import models
 
 class PDF(models.Model):
     pdf_id = models.IntegerField()
+    filepath = models.TextField(default='/')
 
     def __str__(self):
-        return f'PDF {self.pdf_id}'
+        return f'PDF {self.filepath}'
 
 class PDFSelect(models.Model):
     pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
