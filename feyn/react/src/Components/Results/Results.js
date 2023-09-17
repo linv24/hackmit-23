@@ -16,19 +16,23 @@ const Results = () => {
         return "Keep trying!";
     };
 
-    const text = `Score: 0.986
-- The PDF mentions Richard Feynman's Ph.D. in physics, while the recording does not.
-- The PDF mentions Feynman's significant advancements in quantum electrodynamics at Caltech, while the recording does not.
-- The PDF mentions Feynman's love of music, specifically bongo drumming, while the recording does not.
-- The PDF mentions Feynman's passing in 1988, while the recording does not.
-- The PDF mentions Feynman's legacy continuing to inspire physicists and science enthusiasts worldwide, while the recording does not.` // dynamic
+    const text = `Score: 0.843
+    The PDF mentions Richard Feynman being born in 1918 in Queens, New York, while the recording mentions him being born on May 1119 in Buffalo, New York.
+    The PDF states that Feynman obtained his Ph.D. in physics from Princeton University, while the recording does not mention where he obtained his Ph.D.
+    The PDF mentions Feynman's role in the development of the atomic bomb during World War II, while the recording mentions his work on the Manhattan Project during World War I.
+    The PDF states that Feynman joined the faculty at the California Institute of Technology after the war, while the recording does not mention when he joined the institute.
+    The PDF mentions Feynman's significant contributions to quantum electrodynamics, while the recording mentions his research on quantum mechanics.
+    The PDF states that Feynman received the Nobel Prize in Physics in 1965, while the recording states that he won a Nobel Peace Prize in physics in 1956.
+    The PDF mentions Feynman's ability to explain complex scientific concepts in relatable terms, while the recording mentions his lectures and books being simple.
+    The PDF mentions Feynman's passion for music and bongo drumming, while the recording mentions his love for music, especially bongo drumming.
+    The PDF states that Feynman passed away in 1998, while the recording states that he passed away in the February of T 90 H.` // dynamic
 
     const textLines = text.split('\n')
     // const score = 0.97 * 100; // dynamic
     const score = textLines[0].split(' ')[1] * 100
     const feedbackArray = []
     for (const line of textLines.slice(1)) {
-        feedbackArray.push(line.substring(2))
+        feedbackArray.push(line.substring(4))
     }
 
     return (

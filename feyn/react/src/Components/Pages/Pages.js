@@ -1,4 +1,4 @@
-// demo 
+// demo
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
@@ -9,7 +9,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = "../../../public/pdf.worker.js"
 
 const Pages = () => {
     const [selectedPages, setSelectedPages] = useState([]);
-    const images = ['../../../images/pdf.jpg']; // Add paths of your images here
+    const images = ['../../../images/pdf.jpg', '../../../images/pdf_unhighlighted.jpg']; // Add paths of your images here
 
     // const location = useLocation();
     // const pdfName = location.state?.pdfName || '';
@@ -25,7 +25,7 @@ const Pages = () => {
     //             const pdf = await pdfjs.getDocument(path).promise;
     //             const numPages = pdf.numPages;
     //             const images = [];
-    
+
     //             for (let i = 1; i <= numPages; i++) {
     //                 const page = await pdf.getPage(i);
     //                 const viewport = page.getViewport({ scale: 1 });
@@ -33,15 +33,15 @@ const Pages = () => {
     //                 const ctx = canvas.getContext('2d');
     //                 canvas.height = viewport.height;
     //                 canvas.width = viewport.width;
-    
+
     //                 await page.render({ canvasContext: ctx, viewport: viewport }).promise;
     //                 images.push(canvas.toDataURL());
     //                 console.log(images);
     //             }
-    
+
     //             setPdfImages(images);
     //         };
-    
+
     //         loadPdf();
     //     }
     // }, [pdfName]);
@@ -61,10 +61,10 @@ const Pages = () => {
                 <h1>Choose the pages you want to teach</h1>
                 {/* <div className="image-grid">
                     {pdfImages.map((imgSrc, index) => (
-                        <img 
-                            key={index} 
-                            src={imgSrc} 
-                            alt={`Page ${index + 1}`} 
+                        <img
+                            key={index}
+                            src={imgSrc}
+                            alt={`Page ${index + 1}`}
                             onClick={() => handleImageClick(index)}
                             className={selectedPages.includes(index) ? 'selected' : ''}
                         />
@@ -72,10 +72,10 @@ const Pages = () => {
                 </div> */}
                 <div className="image-grid">
                     {images.map((img, index) => (
-                        <img 
-                            key={index} 
-                            src={img} 
-                            alt={`Page ${index + 1}`} 
+                        <img
+                            key={index}
+                            src={img}
+                            alt={`Page ${index + 1}`}
                             onClick={() => handleImageClick(index)}
                             className={selectedPages.includes(index) ? 'selected' : ''}
                         />

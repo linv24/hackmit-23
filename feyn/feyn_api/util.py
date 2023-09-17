@@ -134,13 +134,13 @@ if __name__ == '__main__':
 
     # transcribe recording
     # recording_path = './content/voice_text.mp3'
-    recording_path = content_dir + 'voice_text_short.mp3'
+    recording_path = content_dir + 'demo_recording.mp3'
     with open(recording_path, 'rb') as mp3:
         recording_text = speech_to_text(mp3)
 
     # summarize necessary texts
     pdf_text = text_summarizer(pdf_text)
-    recording_text = text_summarizer(recording_text)
+    # recording_text = text_summarizer(recording_text)
 
     print(pdf_text)
     print()

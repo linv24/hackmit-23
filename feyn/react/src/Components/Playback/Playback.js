@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
+import Loading from "../Loading/Loading.js"
 import { FaTrash } from 'react-icons/fa';
 import MicRecorder from 'mic-recorder-to-mp3';
 import "./Playback.css"
@@ -18,6 +19,7 @@ const Playback = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const pdfNameFromUpload = location.state ? location.state.pdfName : '';
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -91,6 +93,7 @@ const Playback = () => {
     return (
         <div>
             <Header />
+            {isLoading && <Loading />}
             <div className="center-container">
 
                 {/* Audio visualizer */}
@@ -130,14 +133,29 @@ const Playback = () => {
                 onClick={sendAudioToServer}>
                 Next
                 </Link> */}
-                                <Link to='/Results'
+                                {/* <Link to='/Results'
                     className="main-button"
-                //     onClick={async (e) => {
-                //         e.preventDefault();
-                //         await sendAudioToServer();
-                //         navigate("/Results");
-                //     }}
-                // >
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setIsLoading(true);
+                        setTimeout(() => {
+                            setIsLoading(false);
+                            navigate("/Results");
+                        }, 10000)
+                    }}
+                >
+                Next
+                </Link> */}
+                <Link to='/Loading'
+                    className="main-button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setIsLoading(true);
+                        setTimeout(() => {
+                            setIsLoading(false);
+                            navigate("/Results");
+                        }, 10000)
+                    }}
                 >
                 Next
                 </Link>
