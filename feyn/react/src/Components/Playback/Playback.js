@@ -6,7 +6,7 @@ import MicRecorder from 'mic-recorder-to-mp3';
 import "./Playback.css"
 import "../index.css"
 
-const Mp3Recorder = new MicRecorder({ bitRate: 128 });
+const Mp3Recorder = new MicRecorder({ bitRate: 500 });
 
 const Playback = () => {
     const [isRecording, setIsRecording] = useState(false);
@@ -58,13 +58,15 @@ const Playback = () => {
                 <div className="visualizer" style={{ width: `${isRecording ? '100%' : '0%'}`, transition: 'width 0.3s' }} />
 
                 {/* Record button */}
-                <button className={`record-button ${isRecording ? 'active' : ''}`} onClick={isRecording ? stopRecording : startRecording}>
+                {/* <button className={`record-button ${isRecording ? 'active' : ''}`} onClick={isRecording ? stopRecording : startRecording}>
                     {isRecording ? '' : ''}
-                </button>
+                </button> */}
 
-                {/* Control buttons */}
                 <div className="control-buttons">
                     <button onClick={deleteAudio}><FaTrash /></button>
+                    
+                    <button className={`record-button ${isRecording ? 'active' : ''}`} onClick={isRecording ? stopRecording : startRecording}></button>
+                    
                     {!isPaused ? (
                         <button onClick={pauseAudio}><FaPause /></button>
                     ) : (
@@ -72,8 +74,8 @@ const Playback = () => {
                     )}
                 </div>
 
-                {blobURL && <audio ref={audioRef} src={blobURL} controls style={{ width: '100%' }} />}
-
+                {blobURL && <audio ref={audioRef} src={blobURL} controls={false} style={{ width: '100%' }} />}
+                <br/><br/><br/>
                 <Link to="/Results" className="main-button">Next</Link>
             </div>
             <Link to="/Pages" className="back-button">&lt;</Link>

@@ -1,45 +1,87 @@
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
 .visualizer {
     height: 3px;
     background-color: black;
-    margin: 20px 0;
+    margin: 100px 0;
+    background-size: 200% 100%;
 }
 
 .record-button {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #FFBEA9;
+    /* background-color: #FFBEA9 ; */
+    /* border: 4px solid #FFBEA9; */
     color: white;
-    border: none;
     cursor: pointer;
-    margin: 20px 0;
+    margin: 20px 0px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s;
+    transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+    position: relative;
+}
+
+.record-button::before {
+    content: '';
+    /* change size of inner shape */
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    border-radius: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: border-radius 0.3s;
 }
 
 .record-button.active {
-    background-color: #FFBEA9;
     background-color: #FE9371;
-    transform: scale(1.1); /* This will make the button slightly larger when active */
+    border-color: #FE9371;
+    transform: scale(1.1);
+}
+
+.record-button.active::before {
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.control-buttons .record-button {
+    background-color: #FFBEA9;
+    border-color: #FFBEA9;
+}
+
+.control-buttons .record-button.active {
+    background-color: #FE9371;
+    border-color: #FE9371;
 }
 
 .control-buttons {
     display: flex;
-    justify-content: space-around;
-    width: 150px;
-    margin: 20px auto;
+    justify-content: center;
+    align-items: center; /* Vertically centers children */
+    width: 100%;
+    /* top/bottom space */
+    margin: 0px;
 }
 
 .control-buttons button {
     background: none;
     border: none;
     cursor: pointer;
-    color: blue;
     font-size: 20px;
-}
-
-audio {
-    margin-top: 20px;
+    /* distance between three buttons */
+    margin: 0 40px;
 }
