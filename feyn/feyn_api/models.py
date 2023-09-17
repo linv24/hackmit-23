@@ -1,7 +1,6 @@
 from django.db import models
 
 class PDF(models.Model):
-    pdf_id = models.IntegerField()
     filepath = models.TextField(default='/')
 
     def __str__(self):
@@ -13,14 +12,14 @@ class PDFSelect(models.Model):
     text = models.TextField()
 
     def __str__(self):
-        return f'PDFSel {self.pdf.pdf_id}: {" ".join(self.text.split()[:5])}...'
+        return f'PDFSel {self.pdf.pk}: {" ".join(self.text.split()[:5])}...'
 
 class Recording(models.Model):
     pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
     text = models.TextField()
 
     def __str__(self):
-        return f'Rec {self.pdf.pdf_id}: {" ".join(self.text.split()[:5])}...'
+        return f'Rec {self.pdf.pk}: {" ".join(self.text.split()[:5])}...'
 
 class Similarity(models.Model):
     pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
@@ -28,4 +27,4 @@ class Similarity(models.Model):
     rec_summary = models.TextField()
 
     def __str__(self):
-        return f'Sim {self.pdf.pdf_id}'
+        return f'Sim {self.pdf.pk}'
