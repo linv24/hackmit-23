@@ -7,7 +7,7 @@ import Header from "../Header/Header.js"
 const Record = () => {
 
     return (
-        <div>
+        <div class="page-background">
             <Header />
             <div class="center-container">
                 <h1>Ready to Teach?</h1>
