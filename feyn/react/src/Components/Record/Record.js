@@ -11,6 +11,7 @@ const Record = () => {
             <Header />
             <div class="center-container">
                 <h1>Ready to Teach?</h1>
+                <p>Tips...</p>
                 <Link to="/Playback" class="main-button">Record</Link>
             </div>
 

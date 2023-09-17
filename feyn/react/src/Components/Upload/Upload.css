@@ -5,19 +5,79 @@
     padding: 0;
 } */
 
+.page-background {
+    background-color: #BAD1FF;
+    min-height: 100vh;
+}
+
 .upload-image {
     width: 40px;
-    margin: 20px 0;
+    margin: 20px auto;
+    display: block;
 }
 
 .dropzone {
-    border: 2px dashed #ccc;
-    padding: 30px;
+    border: 3px dashed #C8C8C8;
+    padding: 45px 20px 20px 20px;
+    height: 210px;
+    width: 440px;
     text-align: center;
     cursor: pointer;
     transition: 0.3s;
+    margin-bottom: 40px;
+    margin-top: 30px;
+    background-color: white;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.dropzone:hover {
-    background-color: #f7f7f7;
+.bold {
+    color: #88A5DE;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.uploaded-file-container {
+    border: 1px solid #88A5DE;
+    display: inline-block;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 60px;
+}
+
+.small {
+    color: #C8C8C8;
+    font-size: 75%;
+}
+
+.uploaded-txt {
+    display: block;
+    margin-bottom: -5px;
+    font-weight: bold;
+    font-size: 90%;
+}
+
+.uploaded-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.delete-button img {
+    display: inline-block;
+    width: 20px; /* Or whatever size you prefer */
+    height: auto;
+    vertical-align: bottom;
 }

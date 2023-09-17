@@ -69,11 +69,10 @@ const Upload = () => {
     }
 
     return (
-        <div>
+        <div class="page-background">
             <Header />
             <div class="center-container">
                 <h1>Upload a pdf of your notes</h1>
-                {/* <img src="../../../images/upload.png" alt="Arrow" class="upload-image"/> */}
                 <div>
                     <input
                         type="file"
@@ -82,20 +81,24 @@ const Upload = () => {
                         style={{ display: 'none' }}
                         id="pdf-upload"
                     />
-                    <label htmlFor="pdf-upload" className="link-button">
-                        Choose PDF
-                    </label>
 
                     <div className="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} onClick={openFilePicker}>
-                        <span>Drag & drop your PDF here or click to select</span>
-                        {/* Hidden input field */}
+                        <img src="../../../images/upload.png" alt="Arrow" class="upload-image"/>
+                        <span>Drag & Drop Files or </span>
+                        <span class="bold">Browse</span>
+                        <p class="small">Supported formats: PDF</p>
                         <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".pdf" style={{ display: 'none' }}/>
                     </div>
 
                     {pdfName && (
-                        <div>
-                            <span>{pdfName}</span>
-                            <button onClick={handleDeletePdf} style={{ marginLeft: '10px' }}>X</button>
+                        <div class="uploaded-wrapper">
+                            <p class="uploaded-txt">Uploaded</p>
+                            <div class="uploaded-file-container">
+                                <span>{pdfName}</span>
+                                <button onClick={handleDeletePdf} className="delete-button">
+                                    <img src="../../../images/x.png" alt="Delete" />
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>
