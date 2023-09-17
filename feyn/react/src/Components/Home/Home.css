@@ -67,11 +67,11 @@ html {
 .circle-with-image {
     background-color: white;
     border-radius: 50%;
-    width: 250px; 
-    height: 250px; 
+    width: 250px;
+    height: 250px;
     margin: 0 auto 20px;
     /* Add an image inside the circle as a background */
-    /* background-image: url('../../../images/feynman.png'); */
+    /* background-image: url(../../../images/feynman.png); */
     background-size: cover;
     background-position: center;
     object-fit: cover;
@@ -98,4 +98,8 @@ html {
 
 .dark-orange {
     background-color: #FE9371; 
+}
+
+.feynman {
+    size: 20%;
 }

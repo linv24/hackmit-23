@@ -16,14 +16,13 @@ const Home = () => {
                 <h1 class="title">Study effectively</h1>
                 <Link to="/upload" class="link-button">Start</Link>
                 <div class="scroll-button">
-                    {/* fix */}
                     <a class="down" href="#middle">&lt;</a>
                 </div>
             </div>
             <div id="middle" class="columns-container">
                 <div class="left-column">
                     <div class="circle-with-image">
-                        {/* <img src="../../../images/feynman.png"/> */}
+                        <img class="feynman" src="../../../images/feynman.png"/>
                     </div>
                     <p>Text</p>
                 </div>
