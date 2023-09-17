@@ -121,12 +121,13 @@ const Playback = () => {
                 <br/><br/><br/>
                 <Link 
                     className="main-button" 
-                    onClick={async (e) => {
-                        e.preventDefault(); 
-                        await sendAudioToServer();
-                        navigate("/Results");
-                    }}
-                >
+                //     onClick={async (e) => {
+                //         e.preventDefault(); 
+                //         await sendAudioToServer();
+                //         navigate("/Results");
+                //     }}
+                // >
+                onClick={sendAudioToServer}>
                 Next
                 </Link>
             </div>
