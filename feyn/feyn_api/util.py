@@ -3,6 +3,10 @@ from google.cloud import vision
 import openai
 import requests
 import time
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def pdf_to_text(pdf_path):
     # reader = PdfReader(pdf_fp)
@@ -27,11 +31,11 @@ def pdf_to_text(pdf_path):
         raise Exception(response.error.message)
 
 def speech_to_text(mp3):
-    api_key = 'dbcec334212b4fad80daf478d5339205'
+    AAI_API_KEY = os.getenv('AAI_API_KEY')
     base_url = "https://api.assemblyai.com/v2"
 
     headers = {
-        "authorization": api_key
+        "authorization": AAI_API_KEY
     }
 
     # get upload_url

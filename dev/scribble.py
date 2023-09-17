@@ -8,6 +8,10 @@ import time
 import openai
 from pdf2image import convert_from_path
 import io
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def pdf_to_text(pdf_path):
     # convert pdf to jpgs
@@ -37,11 +41,11 @@ def pdf_to_text(pdf_path):
     return ret_text
 
 def speech_to_text(mp3):
-    api_key = 'dbcec334212b4fad80daf478d5339205'
+    AAI_API_KEY = os.getenv('AAI_API_KEY')
     base_url = "https://api.assemblyai.com/v2"
 
     headers = {
-        "authorization": api_key
+        "authorization": AAI_API_KEY
     }
 
     # get upload_url
@@ -69,7 +73,7 @@ def speech_to_text(mp3):
             time.sleep(3)
 
 def text_summarizer(text):
-    openai.api_key = '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'
+    openai.api_key = os.getenv('OPENAI_API_KEY')
 
     res = openai.ChatCompletion.create(
         model = 'gpt-3.5-turbo',
@@ -88,7 +92,7 @@ def text_summarizer(text):
 def similarity(pdf_text, recording_text):
     # url = 'https://api.openai.com/v1/chat/completions'
 
-    openai.api_key = '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'
+    openai.api_key = os.getenv('OPENAI_API_KEY')
 
     res = openai.ChatCompletion.create(
         model = 'gpt-3.5-turbo',
