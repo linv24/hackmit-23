@@ -14,7 +14,7 @@ const Results = () => {
         return "Keep trying!";
     };
 
-    const score = 90; // dynamic
+    const score = 0.97 * 100; // dynamic
 
     return (
         <div>
@@ -40,10 +40,18 @@ const Results = () => {
                     <Link to="/Pages" class="main-button">Choose New Pages</Link>
                 </div>
                 <div className="orangeBox">
-                    <h3>Things you got wrong:</h3>
+                    {/* <h3>Things you got wrong:</h3>
                     <li>filler</li>
                     <h3>Things you missed:</h3>
-                    <li>filler</li>
+                    <li>filler</li> */}
+                    <h3>Feedback</h3>
+                    <p>- The first text mentions Richard Feynman's charismatic teaching style, while the second text does not.
+- The second text mentions that Feynman studied at MIT and Princeton, while the first text only mentions that he attended those universities.
+- The first text mentions Feynman's work on the Manhattan Project during World War II, while the second text only mentions his contribution to the project.
+- The second text mentions Feynman's bongo drumming hobby, which is not mentioned in the first text.
+- The first text mentions that Feynman's legacy continues to inspire physicists and science enthusiasts worldwide, while the second text mentions that his legacy continues to inspire scientists and enthusiasts globally.
+- The second text specifically mentions Feynman's book "Feynman's Lectures on physics," while the first text only mentions his books in general.
+</p>
                 </div>
             </div>
         </div>

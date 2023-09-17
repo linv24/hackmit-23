@@ -27,7 +27,6 @@ def pdf_to_text(pdf_path):
         raise Exception(response.error.message)
 
 def speech_to_text(mp3):
-    audio_filepath = './content/audio_itec_short.mp3'
     api_key = 'dbcec334212b4fad80daf478d5339205'
     base_url = "https://api.assemblyai.com/v2"
 
@@ -51,8 +50,7 @@ def speech_to_text(mp3):
         transcription_result = requests.get(polling_endpoint, headers=headers).json()
 
         if transcription_result['status'] == 'completed':
-            print(transcription_result['text'])
-            break
+            return transcription_result['text']
 
         elif transcription_result['status'] == 'error':
             raise RuntimeError(f"Transcription failed: {transcription_result['error']}")
