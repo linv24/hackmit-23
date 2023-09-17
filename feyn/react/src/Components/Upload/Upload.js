@@ -48,16 +48,16 @@ const Upload = () => {
         if (pdf) {
             const formData = new FormData();
             formData.append('pdf', pdf);
-    
+
             try {
-                const response = await fetch('http://localhost:8000/api/pdf/add/', {
+                const response = await fetch('http://localhost:8000/api/pdf/', {
                     method: 'POST',
                     body: formData
                 });
-    
+
                 if (response.status === 200) {
                     alert('File uploaded successfully.');
-    
+
                     // Now, we'll fetch the similarity endpoint
                     const similarityResponse = await fetch(`http://localhost:8000/api/similarity/?filename=${encodeURIComponent(pdfName)}`);
                     if (similarityResponse.status === 200) {

@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import PDF
-from .serializers import PDFSerializer, PDFSelectSerializer
+from .serializers import PDFSerializer, PDFSelectSerializer, RecordingSerializer
 from .util import *
 
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -118,7 +118,26 @@ def pdfselect_add(req):
 
 @api_view(['POST'])
 def recording_add(req):
-    pass
+    serializer_class = RecordingSerializer
+
+    mp3 = req.FILES['mp3']
+    print('###')
+    print(mp3)
+
+    serializer = serializer_class(data=req.data)
+    if serializer.is_valid():
+        # you can access the file like this from serializer
+        # uploaded_file = serializer.validated_data["file"]
+        serializer.save()
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED
+        )
+
+    return Response(
+        serializer.errors,
+        status=status.HTTP_400_BAD_REQUEST
+    )
 
 @api_view(['GET'])
 def similarity_detail(req):

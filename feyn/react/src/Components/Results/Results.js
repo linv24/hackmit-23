@@ -6,7 +6,7 @@ import Header from "../Header/Header.js";
 
 const Results = () => {
     const feedbackText = "Point1-Point2-Point3"; // Your feedback string
-    const feedbackArray = feedbackText.split('-'); // Split the string into an array using '-' as a delimiter
+    // const feedbackArray = feedbackText.split('-'); // Split the string into an array using '-' as a delimiter
 
     const getScoreMessage = (score) => {
         if (score >= 80) return "Great job!";
