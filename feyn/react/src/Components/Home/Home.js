@@ -22,16 +22,32 @@ const Home = () => {
             <div id="middle" class="columns-container">
                 <div class="left-column">
                     <div class="circle-with-image">
-                        <img class="feynman" src="../../../images/feynman.png"/>
+                        <img class="feynman" src="../../../images/feynman.png" alt="Feynman"/>
                     </div>
-                    <p>Text</p>
+                    <p class="summary">Richard Fyneman...</p>
                 </div>
 
                 <div class="right-column">
-                    <div class="block light-orange">Step 1</div>
-                    <div class="block dark-orange">Step 2</div>
-                    <div class="block light-orange">Step 3</div>
-                    <div class="block dark-orange">Step 4</div>
+                    <div class="block light-orange">
+                        <h3>Step 1</h3>
+                        <p>Take notes on a topic you want to study</p>
+                    </div>
+                    <div class="block dark-orange">
+                        <h3>Step 2</h3>
+                        <p>Upload your notes</p>
+                    </div>
+                    <div class="block light-orange">
+                        <h3>Step 3</h3>
+                        <p>Teach your topic to Refyne</p>
+                    </div>
+                    <div class="block dark-orange">
+                        <h3>Step 4</h3>
+                        <p>Review gaps in understanding</p>
+                    </div>
+                    <div class="block light-orange">
+                        <h3>Step 5</h3>
+                        <p>Repeat</p>
+                    </div>
                 </div>
             </div>
         </div>

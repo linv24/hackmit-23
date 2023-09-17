@@ -53,7 +53,7 @@ html {
 }
 
 .left-column {
-    background-color: #FE9371;
+    background-color: #FFBEA9;
     width: 40%; 
     padding-top: 30px;
     position: relative;
@@ -67,11 +67,9 @@ html {
 .circle-with-image {
     background-color: white;
     border-radius: 50%;
-    width: 250px;
-    height: 250px;
+    width: 80%;
+    height: 80%;
     margin: 0 auto 20px;
-    /* Add an image inside the circle as a background */
-    /* background-image: url(../../../images/feynman.png); */
     background-size: cover;
     background-position: center;
     object-fit: cover;
@@ -81,7 +79,7 @@ html {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 40%; /* Adjust based on preference */
+    width: 40%; 
     padding: 0% 5% 0% 0%;
 }
 
@@ -93,13 +91,27 @@ html {
 }
 
 .light-orange {
-    background-color: #FFBEA9; /* A lighter shade of orange. Adjust based on preference */
+    background-color: #FFBEA9;
+    text-align: left;
+    padding: 10% 10%;
 }
 
 .dark-orange {
     background-color: #FE9371; 
+    text-align: left;
+    padding: 10% 10%;
+}
+
+.summary {
+    padding: 10% 0% 10% 10%;
+    font-size: 150%;
+    text-align: left;
+
 }
 
 .feynman {
-    size: 20%;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover;
+    object-position: center;
 }

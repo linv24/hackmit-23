@@ -1,12 +1,13 @@
 import "./Playback.css"
 import "../index.css"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Header from "../Header/Header.js"
 
 const Playback = () => {
     const [recording, setRecording] = useState(false);
     const [playing, setPlaying] = useState(false);
+    const [drawing, setDrawing] = useState(false);
     const [audioURL, setAudioURL] = useState("");
     const [mediaRecorder, setMediaRecorder] = useState(null);
     const [audioChunks, setAudioChunks] = useState([]);
@@ -17,18 +18,19 @@ const Playback = () => {
     const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
     const draw = () => {
-        requestAnimationFrame(draw); // Continuously draw the waveform.
+        requestAnimationFrame(draw);
+        
+        if (!drawing) return;
 
-        analyser.getByteTimeDomainData(dataArray); // Get audio data
-
+        analyser.getByteTimeDomainData(dataArray);
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
         
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';  // BACKGROUND COLOR
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        ctx.lineWidth = 2; // CHANGE
-        ctx.strokeStyle = '#00ff00'; // CHANGE COLOR
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#00ff00';
         ctx.beginPath();
 
         const sliceWidth = canvas.width * 1.0 / analyser.frequencyBinCount;
@@ -51,17 +53,20 @@ const Playback = () => {
         ctx.stroke();
     };
 
+    useEffect(() => {
+        draw();
+        return () => setDrawing(false);
+    }, []);
+
     const startRecording = () => {
+        if (drawing) return;
+
         const constraints = { audio: true };
         navigator.mediaDevices.getUserMedia(constraints)
             .then(stream => {
-                // 1. Create the audio source from the stream.
                 const source = audioContext.createMediaStreamSource(stream);
-                
-                // 2. Connect the source to the analyser.
                 source.connect(analyser);
                 
-                // 3. Initialize the MediaRecorder with the stream.
                 const newMediaRecorder = new MediaRecorder(stream);
                 setMediaRecorder(newMediaRecorder);
     
@@ -75,22 +80,24 @@ const Playback = () => {
     
                 newMediaRecorder.onstop = () => {
                     const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                    setAudioURL(URL.createObjectURL(audioBlob));
+                    const newAudioURL = URL.createObjectURL(audioBlob);
+                    setAudioURL(newAudioURL);
                 };
     
                 newMediaRecorder.start();
                 setRecording(true);
                 
-                // 4. Start the visualization.
-                draw();
+                setDrawing(true);
             });
     };
 
     const stopRecording = () => {
         if (mediaRecorder) {
             mediaRecorder.stop();
+            mediaRecorder.stream.getTracks().forEach(track => track.stop());
             setRecording(false);
         }
+        setDrawing(false);
     };
 
     const playAudio = () => {
@@ -111,7 +118,7 @@ const Playback = () => {
     return (
         <div>
             <Header />
-            <div class="center-container">
+            <div className="center-container">
                 <canvas ref={canvasRef} width={600} height={200}></canvas>
                 {
                     recording
@@ -129,13 +136,11 @@ const Playback = () => {
                         <button onClick={deleteRecording}>Delete</button>
                     </div>
                 )}
-                <Link to="/Results" class="main-button">Next</Link>
+                <Link to="/Results" className="main-button">Next</Link>
             </div>
-
-            <Link to="/Pages" class="back-button">&lt;</Link>
+            <Link to="/Pages" className="back-button">&lt;</Link>
         </div>
-    )
-
+    );
 };
 
 export default Playback;
