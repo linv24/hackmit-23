@@ -44,38 +44,38 @@ const Upload = () => {
         fileInputRef.current.click();
     }
 
-    const handleUpload = async () => {
-        if (pdf) {
-            const formData = new FormData();
-            formData.append('pdf', pdf);
+    // const handleUpload = async () => {
+    //     if (pdf) {
+    //         const formData = new FormData();
+    //         formData.append('file', pdf);
 
-            try {
-                const response = await fetch('http://localhost:8000/api/pdf/', {
-                    method: 'POST',
-                    body: formData
-                });
+    //         try {
+    //             const response = await fetch('http://localhost:8000/api/pdf/', {
+    //                 method: 'POST',
+    //                 body: formData
+    //             });
 
-                if (response.status === 200) {
-                    alert('File uploaded successfully.');
+    //             if (response.status === 200) {
+    //                 alert('File uploaded successfully.');
 
-                    // Now, we'll fetch the similarity endpoint
-                    const similarityResponse = await fetch(`http://localhost:8000/api/similarity/?filename=${encodeURIComponent(pdfName)}`);
-                    if (similarityResponse.status === 200) {
-                        const similarityData = await similarityResponse.json();
-                        console.log(similarityData);
-                    } else {
-                        alert('Failed to fetch similarity.');
-                    }
-                } else {
-                    alert('Failed to upload file.');
-                }
-            } catch (error) {
-                alert('Error: ' + error.message);
-            }
-        } else {
-            alert('No file selected.');
-        }
-    }
+    //                 // Now, we'll fetch the similarity endpoint
+    //                 const similarityResponse = await fetch(`http://localhost:8000/api/similarity/?filename=${encodeURIComponent(pdfName)}`);
+    //                 if (similarityResponse.status === 200) {
+    //                     const similarityData = await similarityResponse.json();
+    //                     console.log(similarityData);
+    //                 } else {
+    //                     alert('Failed to fetch similarity.');
+    //                 }
+    //             } else {
+    //                 alert('Failed to upload file.');
+    //             }
+    //         } catch (error) {
+    //             alert('Error: ' + error.message);
+    //         }
+    //     } else {
+    //         alert('No file selected.');
+    //     }
+    // }
 
     return (
         <div class="page-background">
@@ -111,7 +111,8 @@ const Upload = () => {
                         </div>
                     )}
                 </div>
-                <Link to={{ pathname: "/pages", state: { pdfName: pdfName } }} class="link-button" onClick={handleUpload}>Next</Link>
+                {/* <Link to={{ pathname: "/pages", state: { pdfName: pdfName } }} class="link-button" onClick={handleUpload}>Next</Link> */}
+                <Link to={{ pathname: "/pages", state: { pdfName: pdfName } }} class="link-button">Next</Link>
                 {/* <Link to="/record" class="link-button" onClick={handleUpload}>Next</Link> */}
             </div>
 

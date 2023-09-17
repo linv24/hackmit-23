@@ -23,7 +23,7 @@ const Playback = () => {
         const interval = setInterval(() => {
             setAudioData(prevData => prevData.map(() => Math.random() * 255));
         }, 100); // Updates every 100ms for demonstration
-    
+
         return () => clearInterval(interval); // Cleanup
     }, []);
 
@@ -62,31 +62,31 @@ const Playback = () => {
         setBlobURL('');
     };
 
-    const sendAudioToServer = async () => {
-        if (!blobURL) {
-            console.error("No audio to send");
-            return;
-        }
-    
-        const formData = new FormData();
-        formData.append('filename', pdfNameFromUpload); // Replace with your PDF filename
-        formData.append('mp3', blobURL, 'recorded_audio.mp3');
-    
-        try {
-            const response = await fetch('http://localhost:8000/api/recording/', {
-                method: 'POST',
-                body: formData
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            console.log('Server Response:', data);
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error.message);
-        }
-    };
+    // const sendAudioToServer = async () => {
+    //     if (!blobURL) {
+    //         console.error("No audio to send");
+    //         return;
+    //     }
+
+    //     const formData = new FormData();
+    //     formData.append('filename', pdfNameFromUpload); // Replace with your PDF filename
+    //     formData.append('mp3', blobURL, 'recorded_audio.mp3');
+
+    //     try {
+    //         const response = await fetch('http://localhost:8000/api/recording/', {
+    //             method: 'POST',
+    //             body: formData
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         const data = await response.json();
+    //         console.log('Server Response:', data);
+    //     } catch (error) {
+    //         console.error('There was a problem with the fetch operation:', error.message);
+    //     }
+    // };
 
     return (
         <div>
@@ -102,10 +102,10 @@ const Playback = () => {
                     {isRecording ? '' : ''}
                 </button> */}
 
-                <div className="control-buttons">                    
+                <div className="control-buttons">
                     <button className={`record-button ${isRecording ? 'active' : ''}`} onClick={isRecording ? stopRecording : startRecording}></button>
                     <button onClick={deleteAudio}><FaTrash /></button>
-                    
+
                     {/* {!isPaused ? (
                         <button onClick={pauseAudio}><FaPause /></button>
                     ) : (
@@ -119,15 +119,26 @@ const Playback = () => {
                     <div className="spacer"></div>
                 </div>
                 <br/><br/><br/>
-                <Link to='/Results'
-                    className="main-button" 
+                {/* <Link to='/Results'
+                    className="main-button"
                 //     onClick={async (e) => {
-                //         e.preventDefault(); 
+                //         e.preventDefault();
                 //         await sendAudioToServer();
                 //         navigate("/Results");
                 //     }}
                 // >
                 onClick={sendAudioToServer}>
+                Next
+                </Link> */}
+                                <Link to='/Results'
+                    className="main-button"
+                //     onClick={async (e) => {
+                //         e.preventDefault();
+                //         await sendAudioToServer();
+                //         navigate("/Results");
+                //     }}
+                // >
+                >
                 Next
                 </Link>
             </div>

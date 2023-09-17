@@ -16,19 +16,20 @@ const Results = () => {
         return "Keep trying!";
     };
 
-    const text = `
-    Score: 0.986
+    const text = `Score: 0.986
 - The PDF mentions Richard Feynman's Ph.D. in physics, while the recording does not.
 - The PDF mentions Feynman's significant advancements in quantum electrodynamics at Caltech, while the recording does not.
 - The PDF mentions Feynman's love of music, specifically bongo drumming, while the recording does not.
 - The PDF mentions Feynman's passing in 1988, while the recording does not.
-- The PDF mentions Feynman's legacy continuing to inspire physicists and science enthusiasts worldwide, while the recording does not.
-    ` // dynamic
+- The PDF mentions Feynman's legacy continuing to inspire physicists and science enthusiasts worldwide, while the recording does not.` // dynamic
 
     const textLines = text.split('\n')
     // const score = 0.97 * 100; // dynamic
     const score = textLines[0].split(' ')[1] * 100
-    const feedbackArray = textLines.slice(1)
+    const feedbackArray = []
+    for (const line of textLines.slice(1)) {
+        feedbackArray.push(line.substring(2))
+    }
 
     return (
         <div>

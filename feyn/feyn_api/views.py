@@ -85,7 +85,9 @@ def pdf(req):
     elif req.method == 'POST':
         serializer_class = PDFSerializer
 
-        req.data['filename'] = req.FILES['file'].name
+        print('####')
+        print(req.FILES)
+        req.data['filename'] = req.FILES['pdf'].name
         serializer = serializer_class(data=req.data)
         if serializer.is_valid():
             # you can access the file like this from serializer
