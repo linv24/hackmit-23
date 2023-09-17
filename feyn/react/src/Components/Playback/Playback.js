@@ -119,7 +119,7 @@ const Playback = () => {
                     <div className="spacer"></div>
                 </div>
                 <br/><br/><br/>
-                <Link 
+                <Link to='/Results'
                     className="main-button" 
                 //     onClick={async (e) => {
                 //         e.preventDefault(); 
