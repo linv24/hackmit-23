@@ -114,4 +114,4 @@ const Upload = () => {
 export default Upload;
 
 // postrequest body needs the filepath as a json
-// 
+//
