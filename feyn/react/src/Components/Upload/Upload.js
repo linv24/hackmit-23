@@ -47,21 +47,30 @@ const Upload = () => {
     const handleUpload = async () => {
         if (pdf) {
             const formData = new FormData();
-            formData.append('pdf', pdf); // Append actual file to FormData object
-
+            formData.append('pdf', pdf);
+    
             try {
                 const response = await fetch('http://localhost:8000/api/pdf/add/', {
                     method: 'POST',
-                    body: formData // Send FormData object
+                    body: formData
                 });
-
+    
                 if (response.status === 200) {
                     alert('File uploaded successfully.');
+    
+                    // Now, we'll fetch the similarity endpoint
+                    const similarityResponse = await fetch(`http://localhost:8000/api/similarity/?filename=${encodeURIComponent(pdfName)}`);
+                    if (similarityResponse.status === 200) {
+                        const similarityData = await similarityResponse.json();
+                        console.log(similarityData);
+                    } else {
+                        alert('Failed to fetch similarity.');
+                    }
                 } else {
                     alert('Failed to upload file.');
                 }
             } catch (error) {
-                alert('Error uploading file: ' + error.message);
+                alert('Error: ' + error.message);
             }
         } else {
             alert('No file selected.');
@@ -102,7 +111,8 @@ const Upload = () => {
                         </div>
                     )}
                 </div>
-                <Link to="/pages" class="link-button" onClick={handleUpload}>Next</Link>
+                <Link to={{ pathname: "/pages", state: { pdfName: pdfName } }} class="link-button" onClick={handleUpload}>Next</Link>
+                {/* <Link to="/record" class="link-button" onClick={handleUpload}>Next</Link> */}
             </div>
 
             <Link to="/" class="back-button">&lt;</Link>

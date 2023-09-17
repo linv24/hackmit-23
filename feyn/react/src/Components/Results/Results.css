@@ -8,7 +8,7 @@
     padding: 0 8%; 
     background-color: white;  
     border-radius: 20px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .greyBox {
@@ -33,7 +33,7 @@
     /* position: relative;
     overflow: hidden; */
     /* margin-right: 5%; */
-    box-shadow: 30px 20px 0px #FE9371;
+    box-shadow: 30px 30px 0px #FE9371;
     margin-left: -20px;
 }
 
@@ -84,12 +84,14 @@
     border-radius: 30px;
     padding: 10px;
     font-size: medium;
-    width: 12% !important;
+    width: 50% !important;
     border: 1px solid #C8C8C8;
     text-decoration: none;
     color: black;
     transform: none !important;
     margin-bottom: 100px;
+    display: block;
+    margin: 20px auto;
 }
 
 .results-button:hover {

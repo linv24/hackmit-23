@@ -39,7 +39,7 @@
     width: 25px;
     height: 25px;
     background-color: white;
-    border-radius: 0px;
+    border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -54,7 +54,7 @@
 }
 
 .record-button.active::before {
-    border-radius: 50%;
+    border-radius: 10%;
     animation: pulse 2s infinite;
 }
 
@@ -70,11 +70,12 @@
 
 .control-buttons {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    /* justify-content: center; */
     align-items: center; /* Vertically centers children */
     width: 100%;
     /* top/bottom space */
-    margin: 0px;
+    margin-top: 100px;
 }
 
 .control-buttons button {
@@ -83,5 +84,20 @@
     cursor: pointer;
     font-size: 20px;
     /* distance between three buttons */
-    margin: 0 40px;
+    margin: 20px 0px;
+}
+
+audio {
+}
+
+.audio-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.spacer {
+    flex-grow: 1;
+    background-color: white; /* Or whatever your page's background color is */
 }
