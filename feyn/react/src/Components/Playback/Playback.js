@@ -7,14 +7,14 @@ import Header from "../Header/Header.js"
 const Playback = () => {
     const [recording, setRecording] = useState(false);
     const [playing, setPlaying] = useState(false);
-    const [drawing, setDrawing] = useState(false);
+    const [drawing, setDrawing] = useState(false);  // Add this line
     const [audioURL, setAudioURL] = useState("");
     const [mediaRecorder, setMediaRecorder] = useState(null);
     const [audioChunks, setAudioChunks] = useState([]);
     const audioRef = React.useRef(null);
+    const canvasRef = React.useRef(null);
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioContext.createAnalyser();
-    const canvasRef = React.useRef(null);
     const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
     const draw = () => {
@@ -54,9 +54,17 @@ const Playback = () => {
     };
 
     useEffect(() => {
-        draw();
-        return () => setDrawing(false);
-    }, []);
+        if (recording) {
+            draw();
+        }
+        return () => {
+            if (mediaRecorder) {
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            }
+            analyser.disconnect();
+            audioContext.close();
+        };
+    }, [recording]);
 
     const startRecording = () => {
         if (drawing) return;
