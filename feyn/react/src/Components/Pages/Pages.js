@@ -3,6 +3,7 @@ import "../index.css"
 import React from 'react';
 import { Link } from "react-router-dom";
 import Header from "../Header/Header.js"
+import { Document, Page } from 'react-pdf';
 
 const Pages = () => {
 

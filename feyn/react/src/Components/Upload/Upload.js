@@ -47,12 +47,12 @@ const Upload = () => {
     const handleUpload = async () => {
         if (pdf) {
             const formData = new FormData();
-            formData.append('pdf', pdf);
+            formData.append('pdf', pdf); // Append actual file to FormData object
 
             try {
                 const response = await fetch('http://localhost:8000/api/pdf/add/', {
                     method: 'POST',
-                    body: formData
+                    body: formData // Send FormData object
                 });
 
                 if (response.status === 200) {
@@ -74,7 +74,6 @@ const Upload = () => {
             <div class="center-container">
                 <h1>Upload a pdf of your notes</h1>
                 {/* <img src="../../../images/upload.png" alt="Arrow" class="upload-image"/> */}
-                {/* Uploa PDF box */}
                 <div>
                     <input
                         type="file"
@@ -110,3 +109,6 @@ const Upload = () => {
 };
 
 export default Upload;
+
+// postrequest body needs the filepath as a json
+// 
