@@ -5,6 +5,7 @@ from google.cloud import vision
 import requests
 import json
 import time
+import openai
 
 def pdf_to_text(pdf_path):
     # reader = PdfReader(pdf_fp)
@@ -76,17 +77,32 @@ def speech_to_text():
         else:
             time.sleep(3)
 
+def similarity():
+    # url = 'https://api.openai.com/v1/chat/completions'
 
+    openai.api_key = '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'
+
+    res = openai.ChatCompletion.create(
+        model = 'gpt-3.5-turbo',
+        temperature = 0.2,
+        message = [
+            {'role': 'user', 'content': 'give me three reasons to eat bread'}
+        ]
+    )
+
+    print(res['choices'][0]['message']['content'])
 
 
 if __name__ == '__main__':
     start = time.time()
 
-    pdf = './content/pdf_handwriting.jpg'
-    pdf_text = pdf_to_text(pdf)
+    # pdf = './content/pdf_handwriting.jpg'
+    # pdf_text = pdf_to_text(pdf)
 
     # print(text_summarizer(pdf_text))
     # text_to_speech()
     # speech_to_text()
+
+    similarity()
 
     print('Elapsed time:', time.time() - start)

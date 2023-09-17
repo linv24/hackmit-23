@@ -1,5 +1,6 @@
 import assemblyai as aai
 from google.cloud import vision
+import openai
 import requests
 import time
 
@@ -58,3 +59,7 @@ def speech_to_text(mp3):
 
         else:
             time.sleep(3)
+
+def similarity():
+    pass
+
