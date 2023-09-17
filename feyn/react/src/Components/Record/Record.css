@@ -2,3 +2,21 @@
     background-color: #BAD1FF;
     min-height: 100vh;
 }
+
+.tip {
+    margin-bottom: 100px;
+}
+
+.sparkles {
+    width: 170px;
+    height: auto;
+    position: absolute;
+    top: -105px;  
+    left: 96%; 
+    margin-left: 10px;  
+}
+
+.tip-container {
+    position: relative;
+    display: inline-block; 
+}

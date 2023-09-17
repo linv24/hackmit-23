@@ -11,7 +11,10 @@ const Record = () => {
             <Header />
             <div class="center-container">
                 <h1>Ready to Teach?</h1>
-                <p>Tips...</p>
+                <div className="tip-container">
+                    <p class="tip"><strong>Pro Tip:</strong> Keep it simple! Struggling with simplicity often indicates areas needing more study.</p>
+                    <img class="sparkles" src="../../../images/sparkles.png"/>
+                </div>
                 <Link to="/Playback" class="main-button">Record</Link>
             </div>
 

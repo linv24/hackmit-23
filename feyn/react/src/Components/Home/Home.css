@@ -62,6 +62,7 @@ html {
     display: flex;
     flex-direction: column;
     margin-left: 5%;
+    padding-bottom: 8%;
 }
 
 .circle-with-image {
@@ -103,8 +104,8 @@ html {
 }
 
 .summary {
-    padding: 10% 0% 10% 10%;
-    font-size: 150%;
+    padding: 2% 10% 10% 10%;
+    font-size: 130%;
     text-align: left;
 
 }
@@ -114,4 +115,8 @@ html {
     height: 100%; 
     object-fit: cover;
     object-position: center;
+}
+
+.strong {
+    font-size: 150%;
 }
