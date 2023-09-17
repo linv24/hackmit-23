@@ -6,6 +6,6 @@ class PDFSerializer(serializers.ModelSerializer):
         model = PDF
         fields = (
             'id',
-            'pdf_id',
-            'filepath'
+            'file',
+            'uploaded_on'
         )
