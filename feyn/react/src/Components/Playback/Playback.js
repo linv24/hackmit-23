@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
 import { FaTrash } from 'react-icons/fa';
 import MicRecorder from 'mic-recorder-to-mp3';
@@ -16,6 +16,8 @@ const Playback = () => {
     const audioRef = useRef(null);
     const [audioData, setAudioData] = useState(new Array(100).fill(0).map(() => Math.random() * 255));
     const navigate = useNavigate();
+    const location = useLocation();
+    const pdfNameFromUpload = location.state ? location.state.pdfName : '';
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -67,7 +69,7 @@ const Playback = () => {
         }
     
         const formData = new FormData();
-        formData.append('filename', 'YOUR_ORIGINAL_PDF_NAME.pdf'); // Replace with your PDF filename
+        formData.append('filename', pdfNameFromUpload); // Replace with your PDF filename
         formData.append('mp3', blobURL, 'recorded_audio.mp3');
     
         try {
