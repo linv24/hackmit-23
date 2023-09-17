@@ -4,34 +4,45 @@
 
 .container {
     display: flex;
+    flex-wrap: wrap;
+    padding: 0 8%; 
+    background-color: white;  
+    border-radius: 20px;
+    overflow: visible;
 }
 
 .greyBox {
-    flex: 1;  /* 1/3 of the space */
+    flex: 1; /* 1/3 of the space */
     background-color: #D9D9D9;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    padding: 20px; 
-    overflow: hidden; 
-    margin-left: 5%;
+    padding: 20px;
+    overflow: hidden;
+    margin-right: -20px;
+    /* margin-left: 5%;
+    position: relative; */
+    padding-right: 60px;
+    text-align: center;
 }
 
 .orangeBox {
     flex: 2; /* 2/3 of the space */
     background-color: #FFBEA9;
     border-radius: 20px;
-    padding: 20px; 
-    position: relative; 
-    overflow: hidden;
-    padding: 0% 5% 0% 0%;
+    padding: 20px;
+    /* position: relative;
+    overflow: hidden; */
+    /* margin-right: 5%; */
+    box-shadow: 30px 30px 0px #FE9371;
+    margin-left: -20px;
 }
 
 /* progress bar  */
 .circular-chart {
     display: block;
     margin: 10px auto;
-    max-width: 80%; 
-    max-height: 80%; 
+    max-width: 80%;
+    max-height: 80%;
 }
 
 .circle-bg {
@@ -54,8 +65,35 @@
     text-anchor: middle;
 }
 
+.scoreMessage {
+    font-weight: bold;
+    font-size: 175%;
+    text-align: center;
+}
+
 @keyframes progress {
     0% {
         stroke-dasharray: 0, 100;
     }
+}
+
+.results-button{
+    -webkit-appearance: none;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: medium;
+    width: 50% !important;
+    border: 1px solid #C8C8C8;
+    text-decoration: none;
+    color: black;
+    transform: none !important;
+    margin-bottom: 100px;
+    display: block;
+    margin: 20px auto;
+}
+
+.results-button:hover {
+    background-color: #F6F6F6;
 }

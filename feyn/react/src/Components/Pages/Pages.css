@@ -1,10 +1,16 @@
-/* html, body {
-    background-color: white !important;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-} */
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px; /* Gap between images */
+}
 
-.selected-page {
-    border: 3px solid green;
+.image-grid img {
+    cursor: pointer;
+    border: 3px solid #C8C8C8;
+    width: 200px; /* Adjust this value to your preference for the image width */
+}
+
+.image-grid img.selected {
+    border: 3px solid #FE9371; /* Adjust the border color to your preference */
 }
