@@ -102,7 +102,7 @@ const Upload = () => {
                         </div>
                     )}
                 </div>
-                <Link to="/record" class="link-button" onClick={handleUpload}>Next</Link>
+                <Link to="/pages" class="link-button" onClick={handleUpload}>Next</Link>
             </div>
 
             <Link to="/" class="back-button">&lt;</Link>

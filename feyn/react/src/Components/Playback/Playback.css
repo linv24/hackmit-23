@@ -1,0 +1,45 @@
+.visualizer {
+    height: 3px;
+    background-color: black;
+    margin: 20px 0;
+}
+
+.record-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #FFBEA9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.record-button.active {
+    background-color: #FFBEA9;
+    background-color: #FE9371;
+    transform: scale(1.1); /* This will make the button slightly larger when active */
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 150px;
+    margin: 20px auto;
+}
+
+.control-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: blue;
+    font-size: 20px;
+}
+
+audio {
+    margin-top: 20px;
+}
