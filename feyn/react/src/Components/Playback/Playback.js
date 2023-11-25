@@ -1,25 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
-import Loading from "../Loading/Loading.js"
 import { FaTrash } from 'react-icons/fa';
 import MicRecorder from 'mic-recorder-to-mp3';
 import "./Playback.css"
 import "../index.css"
-import Visualizer from './Visualizer';
 
 const Mp3Recorder = new MicRecorder({ bitRate: 320 });
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Playback = () => {
     const [isRecording, setIsRecording] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
     const [blobURL, setBlobURL] = useState('');
     const audioRef = useRef(null);
-    const [audioData, setAudioData] = useState(new Array(100).fill(0).map(() => Math.random() * 255));
     const navigate = useNavigate();
-    const location = useLocation();
-    const pdfNameFromUpload = location.state ? location.state.pdfName : '';
-    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -46,74 +40,50 @@ const Playback = () => {
             }).catch((e) => console.error(e));
     };
 
-    // const playAudio = () => {
-    //     audioRef.current.play();
-    // };
-
-    // const pauseAudio = () => {
-    //     audioRef.current.pause();
-    //     setIsPaused(true);
-    // };
-
-    // const resumeAudio = () => {
-    //     audioRef.current.play();
-    //     setIsPaused(false);
-    // };
-
     const deleteAudio = () => {
         setBlobURL('');
     };
 
-    // const sendAudioToServer = async () => {
-    //     if (!blobURL) {
-    //         console.error("No audio to send");
-    //         return;
-    //     }
-
-    //     const formData = new FormData();
-    //     formData.append('filename', pdfNameFromUpload); // Replace with your PDF filename
-    //     formData.append('mp3', blobURL, 'recorded_audio.mp3');
-
-    //     try {
-    //         const response = await fetch('http://localhost:8000/api/recording/', {
-    //             method: 'POST',
-    //             body: formData
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //         }
-    //         const data = await response.json();
-    //         console.log('Server Response:', data);
-    //     } catch (error) {
-    //         console.error('There was a problem with the fetch operation:', error.message);
-    //     }
-    // };
+    const sendAudioToServer = async () => {
+        if (!blobURL) {
+            console.error("No audio to send");
+            return;
+        }
+    
+        // Convert the blobURL to a blob
+        const audioBlob = await fetch(blobURL).then(r => r.blob());
+    
+        const formData = new FormData();
+        // formData.append('audio', audioBlob, `$(sessionId).mp3`);
+        formData.append('audio', audioBlob);
+        
+        try {
+            const response = await fetch(`${API_ENDPOINT}/api/recording/`, {
+                method: 'POST',
+                body: formData
+            });
+        
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('Server Response:', data);
+    
+            // Navigate to the results page or handle the server response
+            navigate("/Results", { state: { serverResponse: data } });
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error.message);
+        }
+    };
+    
 
     return (
         <div>
             <Header />
-            {isLoading && <Loading />}
             <div className="center-container">
-
-                {/* Audio visualizer */}
-                {/* <div className="visualizer" style={{ width: `${isRecording ? '100%' : '0%'}`, transition: 'width 0.3s' }} /> */}
-                {/* <Visualizer audioData={audioData} /> */}
-
-                {/* Record button */}
-                {/* <button className={`record-button ${isRecording ? 'active' : ''}`} onClick={isRecording ? stopRecording : startRecording}>
-                    {isRecording ? '' : ''}
-                </button> */}
-
                 <div className="control-buttons">
                     <button className={`record-button ${isRecording ? 'active' : ''}`} onClick={isRecording ? stopRecording : startRecording}></button>
                     <button onClick={deleteAudio}><FaTrash /></button>
-
-                    {/* {!isPaused ? (
-                        <button onClick={pauseAudio}><FaPause /></button>
-                    ) : (
-                        <button onClick={resumeAudio}><FaPlay /></button>
-                    )} */}
                 </div>
                 <br/><br/>
                 <div className="audio-container">
@@ -122,39 +92,11 @@ const Playback = () => {
                     <div className="spacer"></div>
                 </div>
                 <br/><br/><br/>
-                {/* <Link to='/Results'
-                    className="main-button"
-                //     onClick={async (e) => {
-                //         e.preventDefault();
-                //         await sendAudioToServer();
-                //         navigate("/Results");
-                //     }}
-                // >
-                onClick={sendAudioToServer}>
-                Next
-                </Link> */}
-                                {/* <Link to='/Results'
+                <Link to='/Results'
                     className="main-button"
                     onClick={(e) => {
                         e.preventDefault();
-                        setIsLoading(true);
-                        setTimeout(() => {
-                            setIsLoading(false);
-                            navigate("/Results");
-                        }, 10000)
-                    }}
-                >
-                Next
-                </Link> */}
-                <Link to='/Loading'
-                    className="main-button"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setIsLoading(true);
-                        setTimeout(() => {
-                            setIsLoading(false);
-                            navigate("/Results");
-                        }, 15000)
+                        sendAudioToServer();
                     }}
                 >
                 Next
