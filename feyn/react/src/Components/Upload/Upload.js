@@ -62,7 +62,8 @@ const Upload = () => {
                 });
 
                 if (response.status === 200 || response.status === 201) {
-                    navigate('/Pages');
+                    // navigate('/Pages');
+                    navigate('/Record');
                     // alert('File uploaded successfully.');
                 } else {
                     alert('Failed to upload file.');
