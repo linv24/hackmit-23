@@ -1,6 +1,7 @@
 import "./Upload.css"
 import "../index.css"
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
 import Header from "../Header/Header.js"
 
@@ -10,6 +11,7 @@ const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:800
 const Upload = () => {
     const [pdf, setPdf] = useState(null);
     const [pdfName, setPdfName] = useState('');
+    const [sessionId, setSessionId] = useState(''); // State to store the session ID
 
     const handleFileChange = (e) => {
         if (e.target.files.length > 0) {
@@ -18,6 +20,7 @@ const Upload = () => {
             if (uploadedPdf.type === "application/pdf") {
                 setPdf(uploadedPdf);
                 setPdfName(uploadedPdf.name);
+                setSessionId(uuidv4()); // Generate and set a new session ID
             }
         } else {
             alert("Upload a valid pdf file.");
@@ -49,32 +52,16 @@ const Upload = () => {
         if (pdf) {
             const formData = new FormData();
             formData.append('file', pdf);
-    
+            formData.append('sessionId', sessionId); 
+
             try {
                 const response = await fetch(`${API_ENDPOINT}/api/pdf/`, {
                     method: 'POST',
                     body: formData
                 });
-    
+
                 if (response.status === 200) {
                     alert('File uploaded successfully.');
-    
-                    // send the file path in the body as JSON?
-                    const filePath = response.filePath || '';
-                    const similarityResponse = await fetch(`${API_ENDPOINT}/api/similarity/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ filepath: filePath })
-                    });
-    
-                    if (similarityResponse.status === 200) {
-                        const similarityData = await similarityResponse.json();
-                        console.log(similarityData);
-                    } else {
-                        alert('Failed to fetch similarity.');
-                    }
                 } else {
                     alert('Failed to upload file.');
                 }
