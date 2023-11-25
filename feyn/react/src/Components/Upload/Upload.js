@@ -60,7 +60,7 @@ const Upload = () => {
                     body: formData
                 });
 
-                if (response.status === 200) {
+                if (response.status === 200 || response.status === 201) {
                     alert('File uploaded successfully.');
                 } else {
                     alert('Failed to upload file.');
@@ -109,7 +109,6 @@ const Upload = () => {
                 </div>
                 <button className="link-button" onClick={handleUpload}>Upload PDF</button>
             </div>
-
             <Link to="/" class="back-button">&lt;</Link>
         </div>
     )
