@@ -2,13 +2,14 @@ import "./Upload.css"
 import "../index.css"
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../Header/Header.js"
 
-const fileInputRef = React.createRef();
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Upload = () => {
+    const navigate = useNavigate();
+    const fileInputRef = React.createRef();
     const [pdf, setPdf] = useState(null);
     const [pdfName, setPdfName] = useState('');
     const [sessionId, setSessionId] = useState(''); // State to store the session ID
@@ -61,7 +62,8 @@ const Upload = () => {
                 });
 
                 if (response.status === 200 || response.status === 201) {
-                    alert('File uploaded successfully.');
+                    navigate('/Pages');
+                    // alert('File uploaded successfully.');
                 } else {
                     alert('Failed to upload file.');
                 }
@@ -107,7 +109,9 @@ const Upload = () => {
                         </div>
                     )}
                 </div>
-                <button className="link-button" onClick={handleUpload}>Upload PDF</button>
+                {/* <Link to="/Pages" class="main-button">Upload PDF</Link> */}
+                {/* <button className="link-button" onClick={handleUpload}>Upload PDF</button> */}
+                <button className="main-button" onClick={handleUpload}>Upload PDF</button>
             </div>
             <Link to="/" class="back-button">&lt;</Link>
         </div>
