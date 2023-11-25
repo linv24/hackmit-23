@@ -86,8 +86,10 @@ def pdf(req):
         serializer_class = PDFSerializer
 
         print('####')
-        print(req.FILES)
-        req.data['filename'] = req.FILES['pdf'].name
+        print(f'{req.FILES=}')
+        print(f'{req.data=}')
+        print(f'{req.data["sessionId"]=}')
+        # req.data['filename'] = req.FILES['pdf'].name
         serializer = serializer_class(data=req.data)
         if serializer.is_valid():
             # you can access the file like this from serializer
@@ -97,6 +99,8 @@ def pdf(req):
                 serializer.data,
                 status=status.HTTP_201_CREATED
             )
+        else:
+            print(f'{serializer.errors=}')
 
         return Response(
             serializer.errors,

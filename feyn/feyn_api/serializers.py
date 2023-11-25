@@ -5,10 +5,8 @@ class PDFSerializer(serializers.ModelSerializer):
     class Meta:
         model = PDF
         fields = (
-            'id',
+            'sessionId',
             'file',
-            'filename',
-            'uploaded_on'
         )
 
 class PDFSelectSerializer(serializers.ModelSerializer):

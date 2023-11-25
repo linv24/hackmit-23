@@ -5,3 +5,5 @@ build/
 .DS_Store
 .env
 tempCodeRunnerFile.py
+feyn/feyn_api/migrations/
+feyn/uploads/

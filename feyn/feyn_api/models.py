@@ -16,12 +16,12 @@ from django import forms
 
 class PDF(models.Model):
     file = models.FileField(upload_to='uploads/')
-    filename = models.CharField(max_length=100)
+    sessionId = models.CharField(max_length=100)
     uploaded_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         # return self.uploaded_on.date()
-        return f'PDF {"test"}'
+        return f'PDF {self.sessionId}'
 
 class PDFSelect(models.Model):
     pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
