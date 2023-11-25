@@ -1,4 +1,4 @@
-# HackMIT 2023
+# HackMIT 2023: Refeyn
 
 ## Development
 
