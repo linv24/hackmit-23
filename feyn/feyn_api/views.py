@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import PDF
+from .models import PDF, PDFSelect, Recording
 from .serializers import PDFSerializer, PDFSelectSerializer, RecordingSerializer
 from .util import *
 
@@ -154,5 +154,25 @@ def recording_add(req):
     )
 
 @api_view(['GET'])
-def similarity_detail(req):
-    pass
+def similarity_detail(req, sessionId):
+    try:
+        pdf_select = PDFSelect.objects.get(pk=sessionId)
+    except PDFSelect.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    try:
+        rec = Recording.objects.get(pk=sessionId)
+    except Recording.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    pdf_summary = text_summarizer(pdf_select.text)
+    # !!! assumes recording is summarizing, do we need to run recording text through summarizer too?
+    rec_text = rec.text
+
+    sim = similarity(pdf_summary, rec_text)
+    # !!! do we need Similarity class? currently not saving to db
+    # !!! not catching any errors
+    return Response(
+        sim,
+        status=status.HTTP_200_OK
+    )

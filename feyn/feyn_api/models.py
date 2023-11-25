@@ -25,12 +25,14 @@ class PDF(models.Model):
         return f'PDF {self.sessionId}'
 
 class PDFSelect(models.Model):
-    pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
+    # pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
+    sessionId = models.CharField(max_length=SESSION_ID_MAX_LENGTH)
     # NOTE: page_nums field?
     text = models.TextField()
 
     def __str__(self):
-        return f'PDFSel {self.pdf.pk}: {" ".join(self.text.split()[:5])}...'
+        # return f'PDFSel {self.pdf.pk}: {" ".join(self.text.split()[:5])}...'
+        return f'Rec {self.sessionId}'
 
 class Recording(models.Model):
     # pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)

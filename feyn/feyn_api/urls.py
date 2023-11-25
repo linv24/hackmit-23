@@ -11,7 +11,7 @@ urlpatterns = [
     path('pdf/<int:pdf_id>/', views.pdf_detail),
     path('pdfselect/', views.pdfselect_add),
     path('recording/', views.recording_add),
-    path('similarity/', views.similarity_detail)
+    path('similarity/<uuid:sessionId>', views.similarity_detail)
 ]
 
 urlpatterns += staticfiles_urlpatterns()
