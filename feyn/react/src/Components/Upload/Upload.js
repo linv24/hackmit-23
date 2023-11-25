@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "../Header/Header.js"
 
 const fileInputRef = React.createRef();
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Upload = () => {
     const [pdf, setPdf] = useState(null);
@@ -44,38 +45,46 @@ const Upload = () => {
         fileInputRef.current.click();
     }
 
-    // const handleUpload = async () => {
-    //     if (pdf) {
-    //         const formData = new FormData();
-    //         formData.append('file', pdf);
-
-    //         try {
-    //             const response = await fetch('http://localhost:8000/api/pdf/', {
-    //                 method: 'POST',
-    //                 body: formData
-    //             });
-
-    //             if (response.status === 200) {
-    //                 alert('File uploaded successfully.');
-
-    //                 // Now, we'll fetch the similarity endpoint
-    //                 const similarityResponse = await fetch(`http://localhost:8000/api/similarity/?filename=${encodeURIComponent(pdfName)}`);
-    //                 if (similarityResponse.status === 200) {
-    //                     const similarityData = await similarityResponse.json();
-    //                     console.log(similarityData);
-    //                 } else {
-    //                     alert('Failed to fetch similarity.');
-    //                 }
-    //             } else {
-    //                 alert('Failed to upload file.');
-    //             }
-    //         } catch (error) {
-    //             alert('Error: ' + error.message);
-    //         }
-    //     } else {
-    //         alert('No file selected.');
-    //     }
-    // }
+    const handleUpload = async () => {
+        if (pdf) {
+            const formData = new FormData();
+            formData.append('file', pdf);
+    
+            try {
+                const response = await fetch(`${API_ENDPOINT}/api/pdf/`, {
+                    method: 'POST',
+                    body: formData
+                });
+    
+                if (response.status === 200) {
+                    alert('File uploaded successfully.');
+    
+                    // send the file path in the body as JSON?
+                    const filePath = response.filePath || '';
+                    const similarityResponse = await fetch(`${API_ENDPOINT}/api/similarity/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ filepath: filePath })
+                    });
+    
+                    if (similarityResponse.status === 200) {
+                        const similarityData = await similarityResponse.json();
+                        console.log(similarityData);
+                    } else {
+                        alert('Failed to fetch similarity.');
+                    }
+                } else {
+                    alert('Failed to upload file.');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        } else {
+            alert('No file selected.');
+        }
+    }
 
     return (
         <div class="page-background">
@@ -111,9 +120,7 @@ const Upload = () => {
                         </div>
                     )}
                 </div>
-                {/* <Link to={{ pathname: "/pages", state: { pdfName: pdfName } }} class="link-button" onClick={handleUpload}>Next</Link> */}
-                <Link to={{ pathname: "/pages", state: { pdfName: pdfName } }} class="link-button">Next</Link>
-                {/* <Link to="/record" class="link-button" onClick={handleUpload}>Next</Link> */}
+                <button className="link-button" onClick={handleUpload}>Upload PDF</button>
             </div>
 
             <Link to="/" class="back-button">&lt;</Link>
@@ -125,4 +132,3 @@ const Upload = () => {
 export default Upload;
 
 // postrequest body needs the filepath as a json
-//
