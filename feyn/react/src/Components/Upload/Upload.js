@@ -62,7 +62,7 @@ const Upload = () => {
                 });
 
                 if (response.ok) {
-                    navigate('/Record');
+                    navigate('/Record', { state: { sessionId: sessionId }});
                     // alert('File uploaded successfully.');
                 } else {
                     alert('Failed to upload file.');

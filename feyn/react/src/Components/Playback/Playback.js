@@ -10,6 +10,8 @@ const Mp3Recorder = new MicRecorder({ bitRate: 320 });
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Playback = () => {
+    const location = useLocation();
+    const sessionId = location.state ? location.state.sessionId : 'defaultSessionId'; // Fallback to a default ID if not provided
     const [isRecording, setIsRecording] = useState(false);
     const [blobURL, setBlobURL] = useState('');
     const audioRef = useRef(null);
@@ -57,10 +59,11 @@ const Playback = () => {
         const formData = new FormData();
         // formData.append('audio', audioBlob, `$(sessionId).mp3`);
         formData.append('file', audioBlob);
+        formData.append('sessionId', sessionId);
 
         // DEBUG: update sessionId to be dynamic
-        const SESSION_ID = 'matcha'
-        formData.append('sessionId', SESSION_ID)
+        // const SESSION_ID = 'matcha'
+        // formData.append('sessionId', SESSION_ID)
 
         try {
             const response = await fetch(`${API_ENDPOINT}/api/recording/`, {
