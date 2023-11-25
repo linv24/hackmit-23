@@ -1,10 +1,17 @@
 import "./Record.css"
 import "../index.css"
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header/Header.js"
 
 const Record = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const sessionId = location.state ? location.state.sessionId : null;
+
+    const navigateToPlayback = () => {
+        navigate('/Playback', { state: { sessionId: sessionId } });
+    }
 
     return (
         <div class="page-background">
