@@ -78,7 +78,7 @@ const Playback = () => {
             console.log('Server Response:', data);
 
             // Navigate to the results page or handle the server response
-            navigate("/Results", { state: { serverResponse: data } });
+            navigate("/Results", { state: { sessionId: sessionId, serverResponse: data } });
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error.message);
         }
@@ -100,7 +100,7 @@ const Playback = () => {
                     <div className="spacer"></div>
                 </div>
                 <br/><br/><br/>
-                <Link to='/Results'
+                {/* <Link to='/Results'
                     className="main-button"
                     onClick={(e) => {
                         e.preventDefault();
@@ -108,7 +108,15 @@ const Playback = () => {
                     }}
                 >
                 Next
-                </Link>
+                </Link> */}
+                <button
+                    className="main-button"
+                    onClick={() => {
+                        sendAudioToServer();
+                    }}
+                >
+                    Next
+                </button>
             </div>
             <Link to="/Pages" className="back-button">&lt;</Link>
         </div>
