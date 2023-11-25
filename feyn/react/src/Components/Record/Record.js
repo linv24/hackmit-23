@@ -9,6 +9,7 @@ const Record = () => {
     const navigate = useNavigate();
     const sessionId = location.state ? location.state.sessionId : null;
 
+    // copy and paste for rest
     const navigateToPlayback = () => {
         navigate('/Playback', { state: { sessionId: sessionId } });
     }
