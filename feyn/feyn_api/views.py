@@ -85,11 +85,10 @@ def pdf(req):
     elif req.method == 'POST':
         serializer_class = PDFSerializer
 
-        print('####')
-        print(f'{req.FILES=}')
-        print(f'{req.data=}')
-        print(f'{req.data["sessionId"]=}')
-        # req.data['filename'] = req.FILES['pdf'].name
+        # print('####')
+        # print(f'{req.FILES=}')
+        # print(f'{req.data=}')
+        # print(f'{req.data["sessionId"]=}')
         serializer = serializer_class(data=req.data)
         if serializer.is_valid():
             # you can access the file like this from serializer
@@ -126,11 +125,20 @@ def pdfselect_add(req):
 def recording_add(req):
     serializer_class = RecordingSerializer
 
-    mp3 = req.FILES['mp3']
-    print('###')
-    print(mp3)
+    # mp3 = req.FILES['mp3']
+    mp3 = req.data['file']
+    print('####')
+    print(f'{req.data=}')
 
-    serializer = serializer_class(data=req.data)
+    text = speech_to_text(mp3)
+    print(f'{text=}')
+
+    data = {
+        'sessionId': req.data['sessionId'],
+        'text': text
+    }
+
+    serializer = serializer_class(data=data)
     if serializer.is_valid():
         # you can access the file like this from serializer
         # uploaded_file = serializer.validated_data["file"]

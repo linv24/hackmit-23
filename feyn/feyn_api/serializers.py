@@ -21,6 +21,6 @@ class RecordingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recording
         fields = (
-            'id',
+            'sessionId',
             'text'
         )

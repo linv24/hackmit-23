@@ -13,10 +13,11 @@ from django import forms
 #     class Meta:
 #         model = PDF
 #         fields = '__all__'
+SESSION_ID_MAX_LENGTH = 100
 
 class PDF(models.Model):
     file = models.FileField(upload_to='uploads/')
-    sessionId = models.CharField(max_length=100)
+    sessionId = models.CharField(max_length=SESSION_ID_MAX_LENGTH)
     uploaded_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -32,11 +33,13 @@ class PDFSelect(models.Model):
         return f'PDFSel {self.pdf.pk}: {" ".join(self.text.split()[:5])}...'
 
 class Recording(models.Model):
-    pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
+    # pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
+    sessionId = models.CharField(max_length=SESSION_ID_MAX_LENGTH)
     text = models.TextField()
 
     def __str__(self):
-        return f'Rec {self.pdf.pk}: {" ".join(self.text.split()[:5])}...'
+        # return f'Rec {self.pdf.pk}: {" ".join(self.text.split()[:5])}...'
+        return f'Rec {self.sessionId}'
 
 class Similarity(models.Model):
     pdf = models.ForeignKey(PDF, on_delete=models.CASCADE)
