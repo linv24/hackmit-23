@@ -50,33 +50,37 @@ const Playback = () => {
             console.error("No audio to send");
             return;
         }
-    
+
         // Convert the blobURL to a blob
         const audioBlob = await fetch(blobURL).then(r => r.blob());
-    
+
         const formData = new FormData();
         // formData.append('audio', audioBlob, `$(sessionId).mp3`);
-        formData.append('audio', audioBlob);
-        
+        formData.append('file', audioBlob);
+
+        // DEBUG: update sessionId to be dynamic
+        const SESSION_ID = 'matcha'
+        formData.append('sessionId', SESSION_ID)
+
         try {
             const response = await fetch(`${API_ENDPOINT}/api/recording/`, {
                 method: 'POST',
                 body: formData
             });
-        
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
             console.log('Server Response:', data);
-    
+
             // Navigate to the results page or handle the server response
             navigate("/Results", { state: { serverResponse: data } });
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error.message);
         }
     };
-    
+
 
     return (
         <div>
