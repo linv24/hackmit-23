@@ -90,7 +90,7 @@ const Upload = () => {
                     />
 
                     <div className="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} onClick={openFilePicker}>
-                        <img src="../../../images/upload.png" alt="Arrow" class="upload-image"/>
+                        <img src="../../../static/images/upload.png" alt="Arrow" class="upload-image"/>
                         <span>Drag & Drop Files or </span>
                         <span class="bold">Browse</span>
                         <p class="small">Supported formats: PDF</p>
@@ -103,7 +103,7 @@ const Upload = () => {
                             <div class="uploaded-file-container">
                                 <span>{pdfName}</span>
                                 <button onClick={handleDeletePdf} className="delete-button">
-                                    <img src="../../../images/x.png" alt="Delete" />
+                                    <img src="../../../static/images/x.png" alt="Delete" />
                                 </button>
                             </div>
                         </div>
