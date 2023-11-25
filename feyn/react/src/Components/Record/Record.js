@@ -22,7 +22,7 @@ const Record = () => {
                     <p class="tip"><strong>Pro Tip:</strong> Keep it simple! Struggling with simplicity often indicates areas needing more study.</p>
                     <img class="sparkles" src="../../../images/sparkles.png"/>
                 </div>
-                <Link to="/Playback" class="main-button">Record</Link>
+                <button className="main-button" onClick={navigateToPlayback}>Record</button>
             </div>
 
             <Link to="/Pages" class="back-button">&lt;</Link>
