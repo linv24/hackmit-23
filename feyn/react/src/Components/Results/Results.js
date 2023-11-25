@@ -1,10 +1,12 @@
 import "./Results.css";
 import "../index.css";
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
 
 const Results = () => {
+    const location = useLocation();
+    const sessionId = location.state ? location.state.sessionId : null;
     const [score, setScore] = useState(0);
     const [feedbackArray, setFeedbackArray] = useState([]);
     // const feedbackText = "Point1-Point2-Point3"; // Your feedback string
@@ -25,8 +27,10 @@ const Results = () => {
             }
         };
 
-        fetchResults();
-    }, []);
+        if (sessionId) {
+            fetchResults();
+        }
+    }, [sessionId]);
 
     const getScoreMessage = (score) => {
         if (score >= 80) return "Great job!";
