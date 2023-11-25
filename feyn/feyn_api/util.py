@@ -74,7 +74,8 @@ def speech_to_text(mp3):
 def text_summarizer(text):
     openai.api_key = os.getenv('OPENAI_API_KEY')
 
-    res = openai.ChatCompletion.create(
+    client = openai.OpenAI()
+    res = client.chat.completions.create(
         model = 'gpt-3.5-turbo',
         temperature = 0.2,
         messages = [
@@ -85,7 +86,7 @@ def text_summarizer(text):
              }
         ]
     )
-    return res['choices'][0]['message']['content']
+    return res.choices[0].message.content
 
 
 def similarity(pdf_text, recording_text):
@@ -109,7 +110,8 @@ def similarity(pdf_text, recording_text):
     """
     '''
 
-    res = openai.ChatCompletion.create(
+    client = openai.OpenAI()
+    res = client.chat.completions.create(
         model = 'gpt-3.5-turbo',
         temperature = 0.0,
         messages = [
@@ -120,7 +122,7 @@ def similarity(pdf_text, recording_text):
         ]
     )
 
-    return res['choices'][0]['message']['content']
+    return res.choices[0].message.content
 
 
 if __name__ == '__main__':
