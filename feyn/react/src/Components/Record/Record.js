@@ -21,7 +21,7 @@ const Record = () => {
                 <h1>Ready to Teach?</h1>
                 <div className="tip-container">
                     <p class="tip"><strong>Pro Tip:</strong> Keep it simple! Struggling with simplicity often indicates areas needing more study.</p>
-                    <img class="sparkles" src="../../../images/sparkles.png"/>
+                    <img class="sparkles" src="../../../static/images/sparkles.png"/>
                 </div>
                 <button className="main-button" onClick={navigateToPlayback}>Record</button>
             </div>

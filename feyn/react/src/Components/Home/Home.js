@@ -22,7 +22,7 @@ const Home = () => {
             <div id="middle" class="columns-container">
                 <div class="left-column">
                     <div class="circle-with-image">
-                        <img class="feynman" src="../../../images/feynman.png" alt="Feynman"/>
+                        <img class="feynman" src="../../../static/images/feynman.png" alt="Feynman"/>
                     </div>
                     <p class="summary"><strong class="strong">Richard Feynman </strong>was an American theoretical physicist who was awarded the Nobel Prize in 1965 for his transformative work in quantum mechanics. Beyond his pioneering research, Feynman was celebrated for his extraordinary teaching capabilities. He believed deeply in the clarity of understanding, asserting that true comprehension came when a concept could be explained in simple terms. From this belief emerged the Feynman Technique, a powerful method for deepening understanding. The essence of this technique is to learn by teaching: if you can explain a topic in straightforward terms, then you've truly grasped its essence. This approach not only helps in assimilating knowledge but also in identifying gaps in understanding, making it an invaluable tool for learners across disciplines.</p>
                 </div>

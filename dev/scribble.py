@@ -6,6 +6,7 @@ import requests
 import json
 import time
 import openai
+from openai import OpenAI
 from pdf2image import convert_from_path
 import io
 import os
@@ -13,7 +14,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def pdf_to_text(pdf_path):
+def pdf_to_text(pdf_path, page_ixs=None):
     # convert pdf to jpgs
     images = convert_from_path(pdf_path)
 
@@ -39,6 +40,7 @@ def pdf_to_text(pdf_path):
             raise Exception(response.error.message)
 
     return ret_text
+
 
 def speech_to_text(mp3):
     AAI_API_KEY = os.getenv('AAI_API_KEY')
@@ -72,10 +74,13 @@ def speech_to_text(mp3):
         else:
             time.sleep(3)
 
+
 def text_summarizer(text):
     openai.api_key = os.getenv('OPENAI_API_KEY')
 
-    res = openai.ChatCompletion.create(
+    client = OpenAI()
+
+    res = client.chat.completions.create(
         model = 'gpt-3.5-turbo',
         temperature = 0.2,
         messages = [
@@ -87,29 +92,47 @@ def text_summarizer(text):
         ]
     )
 
-    return res['choices'][0]['message']['content']
+    # return res['choices'][0]['message']['content']
+    return res.choices[0].message.content
+
 
 def similarity(pdf_text, recording_text):
-    # url = 'https://api.openai.com/v1/chat/completions'
+    # Inspiration for prompt engineering: https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api
 
     openai.api_key = os.getenv('OPENAI_API_KEY')
 
-    res = openai.ChatCompletion.create(
+    prompt = f'''
+    For the two texts mentioned below, calculate their cosine similarity score and the semantic
+    differences between the texts in bullet points. Refer to the first text as "the PDF"
+    and the second text as "the recording".
+
+    Desired format:
+    Score: <similarity_score>
+    - <differences>
+
+    Text: """
+    {pdf_text}
+
+    {recording_text}
+    """
+    '''
+
+    client = OpenAI()
+
+    res = client.chat.completions.create(
         model = 'gpt-3.5-turbo',
-        temperature = 0.2,
+        temperature = 0.0,
         messages = [
             {
                 'role': 'user',
-                'content': f'for these two texts, give me a cosine similarity score and the semenatic differences between the texts in bullet points:\n{pdf_text}\n{recording_text}'
-
+                'content': prompt
              }
         ]
     )
 
-    return res['choices'][0]['message']['content']
+    return res.choices[0].message.content
 
-
-if __name__ == '__main__':
+def test_pipeline(pdf, recording_path):
     start = time.time()
 
     # transcribe pdf
@@ -134,3 +157,29 @@ if __name__ == '__main__':
     print(sim)
 
     print('Elapsed time:', time.time() - start)
+
+
+if __name__ == '__main__':
+    # test_pipeline(pdf='./content/pdf_text.pdf', recording_path='./content/voice_text_short.mp3')
+
+    demo_pdf = './content/pdf_handwritten_final_highlighted.pdf'
+    demo_pdf_text = './content/pdf_handwritten_final_highlighted.txt'
+    demo_recording = './content/demo_recording.mp3'
+    demo_recording_text = './content/demo_recording.txt'
+
+    # with open(demo_recording, 'rb') as mp3:
+    #     recording_text = speech_to_text(mp3)
+    #     with open('./content/demo_recording.txt', 'w') as f:
+    #         f.write(recording_text)
+
+    # summarize necessary texts
+    with open(demo_pdf_text, 'r') as f:
+        pdf_text = text_summarizer(f.read())
+
+    print(pdf_text)
+    print()
+
+    with open(demo_recording_text, 'r') as f:
+        sim = similarity(pdf_text, f.read())
+    print(sim)
+
