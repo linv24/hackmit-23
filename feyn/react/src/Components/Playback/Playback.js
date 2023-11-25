@@ -154,7 +154,7 @@ const Playback = () => {
                         setTimeout(() => {
                             setIsLoading(false);
                             navigate("/Results");
-                        }, 10000)
+                        }, 15000)
                     }}
                 >
                 Next

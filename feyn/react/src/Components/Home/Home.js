@@ -50,6 +50,9 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <div classNmae="buffer">
+                <p> </p>
+            </div>
         </div>
     )
 

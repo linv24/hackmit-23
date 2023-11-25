@@ -55,7 +55,7 @@ html {
 .left-column {
     background-color: #FFBEA9;
     width: 40%;
-    padding-top: 10px;
+    padding-top: 50px;
     position: relative;
     text-align: center;
     border-radius: 30px;
@@ -119,4 +119,8 @@ html {
 
 .strong {
     font-size: 150%;
+}
+
+.buffer {
+    margin: 15px;
 }
