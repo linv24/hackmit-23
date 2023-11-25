@@ -13,6 +13,7 @@ const Playback = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [blobURL, setBlobURL] = useState('');
     const audioRef = useRef(null);
+    const [audioData, setAudioData] = useState(new Array(100).fill(0).map(() => Math.random() * 255));
     const navigate = useNavigate();
 
     useEffect(() => {
