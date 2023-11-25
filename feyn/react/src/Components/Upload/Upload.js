@@ -53,7 +53,7 @@ const Upload = () => {
         if (pdf) {
             const formData = new FormData();
             formData.append('file', pdf);
-            formData.append('sessionId', sessionId); 
+            formData.append('sessionId', sessionId);
 
             try {
                 const response = await fetch(`${API_ENDPOINT}/api/pdf/`, {
@@ -61,7 +61,7 @@ const Upload = () => {
                     body: formData
                 });
 
-                if (response.status === 200 || response.status === 201) {
+                if (response.ok) {
                     navigate('/Pages');
                     // alert('File uploaded successfully.');
                 } else {
