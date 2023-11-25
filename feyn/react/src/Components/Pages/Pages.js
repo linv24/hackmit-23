@@ -1,4 +1,6 @@
-// demo
+// Skip for now
+// send indicies of selected pages and have server process only those pages of the original PDF 
+
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Header from "../Header/Header.js";
@@ -7,45 +9,51 @@ import "../index.css"
 import * as pdfjs from 'pdfjs-dist/webpack';
 pdfjs.GlobalWorkerOptions.workerSrc = "../../../public/pdf.worker.js"
 
+// const Pages = () => {
+//     const [selectedPages, setSelectedPages] = useState([]);
+//     const images = ['../../../images/pdf.jpg', '../../../images/pdf_unhighlighted.jpg']; 
+
 const Pages = () => {
     const [selectedPages, setSelectedPages] = useState([]);
-    const images = ['../../../images/pdf.jpg', '../../../images/pdf_unhighlighted.jpg']; // Add paths of your images here
+    const [pdfPages, setPdfPages] = useState([]);
+    const location = useLocation();
+    const pdfNameFromUpload = location.state ? location.state.pdfName : ''; // Get the PDF name from the previous component
+    const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-    // const location = useLocation();
-    // const pdfName = location.state?.pdfName || '';
+    useEffect(() => {
+        // Fetch the PDF from the server or use a local file for demonstration
+        const fetchPdf = async () => {
+            // change path
+            // /pdfselect
+            const response = await fetch(`${API_ENDPOINT}/path-to-pdf/${pdfNameFromUpload}`);
+            const pdfBlob = await response.blob();
+            const pdf = await pdfjs.getDocument(URL.createObjectURL(pdfBlob)).promise;
 
-    // const [pdfImages, setPdfImages] = useState([]);
+            const pages = [];
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: 1 });
+                const canvas = document.createElement("canvas");
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
 
-    // // const path = `../../${pdfName}`;
-    // const path = `test.pdf`
+                const renderContext = {
+                    canvasContext: canvas.getContext("2d"),
+                    viewport: viewport
+                };
 
-    // useEffect(() => {
-    //     if (pdfName) {
-    //         const loadPdf = async () => {
-    //             const pdf = await pdfjs.getDocument(path).promise;
-    //             const numPages = pdf.numPages;
-    //             const images = [];
+                await page.render(renderContext).promise;
+                pages.push(canvas.toDataURL());
+            }
 
-    //             for (let i = 1; i <= numPages; i++) {
-    //                 const page = await pdf.getPage(i);
-    //                 const viewport = page.getViewport({ scale: 1 });
-    //                 const canvas = document.createElement('canvas');
-    //                 const ctx = canvas.getContext('2d');
-    //                 canvas.height = viewport.height;
-    //                 canvas.width = viewport.width;
+            setPdfPages(pages);
+        };
 
-    //                 await page.render({ canvasContext: ctx, viewport: viewport }).promise;
-    //                 images.push(canvas.toDataURL());
-    //                 console.log(images);
-    //             }
+        fetchPdf();
+    }, []);
 
-    //             setPdfImages(images);
-    //         };
 
-    //         loadPdf();
-    //     }
-    // }, [pdfName]);
-
+    // same
     const handleImageClick = (index) => {
         if (selectedPages.includes(index)) {
             setSelectedPages(prev => prev.filter(i => i !== index));
@@ -59,22 +67,11 @@ const Pages = () => {
             <Header />
             <div className="center-container">
                 <h1>Choose the pages you want to teach</h1>
-                {/* <div className="image-grid">
-                    {pdfImages.map((imgSrc, index) => (
+                <div className="image-grid">
+                    {pdfPages.map((imgSrc, index) => (
                         <img
                             key={index}
                             src={imgSrc}
-                            alt={`Page ${index + 1}`}
-                            onClick={() => handleImageClick(index)}
-                            className={selectedPages.includes(index) ? 'selected' : ''}
-                        />
-                    ))}
-                </div> */}
-                <div className="image-grid">
-                    {images.map((img, index) => (
-                        <img
-                            key={index}
-                            src={img}
                             alt={`Page ${index + 1}`}
                             onClick={() => handleImageClick(index)}
                             className={selectedPages.includes(index) ? 'selected' : ''}

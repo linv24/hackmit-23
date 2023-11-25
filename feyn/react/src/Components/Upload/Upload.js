@@ -62,7 +62,7 @@ const Upload = () => {
                 });
 
                 if (response.ok) {
-                    navigate('/Pages');
+                    navigate('/Record');
                     // alert('File uploaded successfully.');
                 } else {
                     alert('Failed to upload file.');
