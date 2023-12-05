@@ -15,7 +15,13 @@ const Results = () => {
     useEffect(() => {
         const fetchResults = async () => {
             try {
-                const response = await fetch('https://localhost:8000/api/similarity');
+                // Append sessionId as a query parameter
+                const url = new URL('http://localhost:8000/api/similarity');
+                if (sessionId) {
+                    url.searchParams.append('sessionId', sessionId);
+                }
+                
+                const response = await fetch('url');
                 if (!response.ok) {
                     throw new Error('Network bad');
                 }
