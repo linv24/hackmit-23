@@ -3,16 +3,19 @@ from google.cloud import vision
 import io
 import openai
 import os
-from pdf2image import convert_from_path
+from pdf2image import convert_from_path, convert_from_bytes
 import requests
 import time
 
 load_dotenv()
 
 
-def pdf_to_text(pdf_path, page_ixs=None):
+def pdf_to_text(pdf, page_ixs=None, from_bytes=False):
     # convert pdf to jpgs
-    images = convert_from_path(pdf_path)
+    if from_bytes:
+        images = convert_from_bytes(pdf)
+    else:
+        images = convert_from_path(pdf)
 
     # get pdf transcript
     client = vision.ImageAnnotatorClient()
@@ -144,12 +147,12 @@ if __name__ == '__main__':
     pdf_text = text_summarizer(pdf_text)
     # recording_text = text_summarizer(recording_text)
 
-    print(pdf_text)
+    print(f'{pdf_text=}')
     print()
-    print(recording_text)
+    print(f'{recording_text=}')
     print()
 
     sim = similarity(pdf_text, recording_text)
-    print(sim)
+    print(f'{sim=}')
 
     print('Elapsed time:', time.time() - start)

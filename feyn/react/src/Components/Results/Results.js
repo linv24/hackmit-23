@@ -20,14 +20,14 @@ const Results = () => {
                 if (sessionId) {
                     url.searchParams.append('sessionId', sessionId);
                 }
-                
-                const response = await fetch('url');
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('Network bad');
                 }
                 const data = await response.json();
-                setScore(data.score * 100);
-                setFeedbackArray(data.text.split('\n').slice(1).map(line => line.trim().substring(4)));
+                // setScore(data.score * 100);
+                // setFeedbackArray(data.text.split('\n').slice(1).map(line => line.trim().substring(4)));
+                setFeedbackArray(data.split('\n').slice(1).map(line => line.trim().substring(4)));
             } catch (error) {
                 console.error('Fetch error:', error);
             }
@@ -101,7 +101,7 @@ const Results = () => {
 
 export default Results;
 
-// after you finish recording, click done button, makes post request with mp3 
-// make another request to get the similarity results 
+// after you finish recording, click done button, makes post request with mp3
+// make another request to get the similarity results
 // will return score and text
 // /api/similarity

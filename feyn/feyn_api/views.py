@@ -94,14 +94,26 @@ def pdf(req):
             # you can access the file like this from serializer
             # uploaded_file = serializer.validated_data["file"]
             serializer.save()
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
+
+            # !!! eventually put this under the pdfselect api endpoint, skipping that for now
+
+            select_serializer_class = PDFSelectSerializer
+            text = pdf_to_text(req.data['file'].file.getvalue(), from_bytes=True)
+            data = {
+                'sessionId': req.data['sessionId'],
+                'text': text
+            }
+
+            select_serializer = select_serializer_class(data=data)
+            if select_serializer.is_valid():
+                select_serializer.save()
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
             )
         else:
             print(f'{serializer.errors=}')
-
-        return Response(
+            return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
@@ -137,6 +149,7 @@ def recording_add(req):
         'sessionId': req.data['sessionId'],
         'text': text
     }
+    print(f'{data=}')
 
     serializer = serializer_class(data=data)
     if serializer.is_valid():
@@ -147,28 +160,34 @@ def recording_add(req):
             serializer.data,
             status=status.HTTP_201_CREATED
         )
-
-    return Response(
-        serializer.errors,
-        status=status.HTTP_400_BAD_REQUEST
-    )
+    else:
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 @api_view(['GET'])
-def similarity_detail(req, sessionId):
+def similarity_detail(req):
+    print('#### similarity')
+    print(f'{req.data=}')
+    print(f'{req.query_params=}')
+    sessionId = req.query_params['sessionId']
     try:
-        pdf_select = PDFSelect.objects.get(pk=sessionId)
+        pdf_select = PDFSelect.objects.get(sessionId=sessionId)
     except PDFSelect.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response('PDFs not found', status=status.HTTP_404_NOT_FOUND)
 
     try:
-        rec = Recording.objects.get(pk=sessionId)
+        rec = Recording.objects.get(sessionId=sessionId)
     except Recording.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response('Recording not found', status=status.HTTP_404_NOT_FOUND)
 
+    print('summarizer in')
     pdf_summary = text_summarizer(pdf_select.text)
     # !!! assumes recording is summarizing, do we need to run recording text through summarizer too?
     rec_text = rec.text
 
+    print('similarity in')
     sim = similarity(pdf_summary, rec_text)
     # !!! do we need Similarity class? currently not saving to db
     # !!! not catching any errors

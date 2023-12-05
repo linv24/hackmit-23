@@ -13,7 +13,7 @@ class PDFSelectSerializer(serializers.ModelSerializer):
     class Meta:
         model = PDFSelect
         fields = (
-            'id',
+            'sessionId',
             'text'
         )
 
