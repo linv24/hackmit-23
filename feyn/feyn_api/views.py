@@ -74,7 +74,7 @@ def pdf_detail(req, pdf_id):
 
 
 @api_view(['GET', 'POST'])
-def pdf(req):
+def pdf_filepath(req):
     if req.method == 'GET':
         try:
             pdf = PDF.objects.filter(filename=req.data['filename'])[0]
@@ -189,6 +189,7 @@ def similarity_detail(req):
 
     print('similarity in')
     sim = similarity(pdf_summary, rec_text)
+    print(f'{sim=}')
     # !!! do we need Similarity class? currently not saving to db
     # !!! not catching any errors
     return Response(

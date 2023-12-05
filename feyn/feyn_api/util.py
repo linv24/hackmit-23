@@ -133,26 +133,27 @@ if __name__ == '__main__':
 
     content_dir = '../../dev/content/'
 
-    # transcribe pdf
-    pdf = content_dir + 'pdf_handwritten_final_highlighted.pdf'
-    pdf_text = pdf_to_text(pdf)
+    # 1. transcribe pdf
+    ### INSERT PDF FILEPATH HERE ###
+    pdf_filepath = content_dir + 'pdf_handwritten_final_highlighted.pdf'
+    pdf_text = pdf_to_text(pdf_filepath)
 
-    # transcribe recording
-    # recording_path = './content/voice_text.mp3'
-    recording_path = content_dir + 'demo_recording.mp3'
-    with open(recording_path, 'rb') as mp3:
+    # 2. transcribe recording
+    ### INSERT MP3 FILEPATH HERE ###
+    recording_filepath = content_dir + 'demo_recording.mp3'
+    with open(recording_filepath, 'rb') as mp3:
         recording_text = speech_to_text(mp3)
 
-    # summarize necessary texts
-    pdf_text = text_summarizer(pdf_text)
-    # recording_text = text_summarizer(recording_text)
+    # 3. summarize necessary texts
+    summarized_pdf_text = text_summarizer(pdf_text)
 
-    print(f'{pdf_text=}')
+    print(f'{summarized_pdf_text=}')
     print()
     print(f'{recording_text=}')
     print()
 
-    sim = similarity(pdf_text, recording_text)
+    # 4. generate similarity score/feedback
+    sim = similarity(summarized_pdf_text, recording_text)
     print(f'{sim=}')
 
     print('Elapsed time:', time.time() - start)
